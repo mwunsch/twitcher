@@ -55,7 +55,7 @@
     
     compose_url: function(query){
       query = query || this.setup.query_string
-      return Twitcher.URL() + "?" + "q=" + query;
+      return Twitcher.URL() + "?" + "q=" + encodeURIComponent(query);
     },
     
     setup: {

@@ -12,8 +12,8 @@ describe 'Twitcher'
     search.setup.query_string.should.be "from:markwunsch"
   end
   
-  it 'should compose a Twitter API url'
-    search.compose_url().should.be "http://search.twitter.com/search.json?q=from:markwunsch"
+  it 'should compose/encode a Twitter API url'
+    search.compose_url().should.be "http://search.twitter.com/search.json?q=from%3Amarkwunsch"
   end
   
   it 'should accept parameters for Search API'
