@@ -1,7 +1,7 @@
 
 describe 'Twitcher'
   before
-    search = Twitcher("from:markwunsch")
+    search = Twitcher("from:markwunsch",{'lang':'en','rpp':'20','show_user':false, 'foo':'bar'})
   end
   
   it 'should return a Twitcher object'
@@ -17,7 +17,13 @@ describe 'Twitcher'
   end
   
   it 'should accept parameters for Search API'
-    search.setup.parameters.should.be_an Object
+    search.setup.parameters.lang.should.be 'en'
+    search.setup.parameters.rpp.should.be '20'
+    search.setup.parameters.show_user.should.be 'false'
+  end
+  
+  it 'should not allow params not defined by Search API'
+    search.setup.parameters.foo.should_not.be 'bar'
   end
   
 end
