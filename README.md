@@ -50,7 +50,7 @@ will return all the tweets in the search results. you can loop over them like th
 		// that's the tweet
 	});
 	
-You can do the same thing this way: `tooter.each_tweets`
+You can do the same thing this way: `tooter.each_tweet`
 
 ## That's it
 
