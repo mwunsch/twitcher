@@ -99,7 +99,12 @@
     },
     
     count: function(){
-      return this.tweets().length;
+      var tweets = this.tweets();
+      if (tweets) {
+        return this.tweets().length;  
+      } else {
+        return null;
+      }
     },
     
     each_tweet: function(lambda){
