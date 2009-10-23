@@ -16,10 +16,7 @@ describe 'Twitcher'
     search.compose_url().should.be "http://search.twitter.com/search.json?q=from:markwunsch"
   end
   
-  it 'should reach out to Twitter and get tweets'    
-  end
-  
-  it 'should notify Twitcher on success'
+  it 'should accept paramaters for Search API'    
   end
   
 end
