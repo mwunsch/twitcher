@@ -35,6 +35,12 @@
       };
 
       head.appendChild(script);
+    },
+    
+    extend: function(target, object) {
+      for (var i in object) {
+        target[i] = object[i];
+      }
     }
   };
   
@@ -137,8 +143,6 @@
   window.Twitcher = function(query, parameters) {
     return new Twitcher(query,parameters);
   };
-  for (var key in Twitcher) {
-    window.Twitcher[key] = Twitcher[key];
-  };
+  Twitcher.Extensions.extend(window.Twitcher, Twitcher);
   
 })();
