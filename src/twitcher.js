@@ -49,7 +49,9 @@
       var self = this;
       
       self.setup.query_string = query || "";
+      self.setup.parameters = self.build_params(params);
       self.url = self.compose_url();
+      
       if (query) {
         self.load(function(data){
           console.log(data);
@@ -59,21 +61,40 @@
       return self;
     },
     
-    compose_url: function(query){
-      query = query || this.setup.query_string
+    build_params: function(params){
+      var setup = this.setup.parameters;
+      var new_params = {};
+      
+      if (!params) {
+        return new_params;
+      }
+      
+      for (name in params) {        
+        if (setup[name]) {
+          new_params[name] = params[name] + '';
+        }
+      }
+      
+      return new_params;
+    },
+    
+    compose_url: function(query, params){
+      query = query || this.setup.query_string;
+      
+      
       return Twitcher.URL() + "?" + "q=" + encodeURIComponent(query);
     },
     
     setup: {
       query_string: "",
       parameters: {
-        "lang": "",
-        "locale": "",
-        "rpp": "",
-        "page": "",
-        "since_id": "",
-        "geocode": "",
-        "show_user": ""
+        "lang": true,
+        "locale": true,
+        "rpp": true,
+        "page": true,
+        "since_id": true,
+        "geocode": true,
+        "show_user": true
       },
       
       callback: "twitcher_load",
