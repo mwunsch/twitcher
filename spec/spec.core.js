@@ -42,7 +42,7 @@ describe 'Twitcher'
     end
     
     it 'should compose/encode a Twitter API url'
-      
+      search.compose_url().should.be "http://search.twitter.com/search.json?q=foobar&lang=en&rpp=20&show_user=false"
     end
   end
   

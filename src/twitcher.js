@@ -75,8 +75,13 @@
     compose_url: function(query, params){
       query = query || this.query_string;
       params = params || this.parameters;
+      var param_string = "q=" + encodeURIComponent(query);
       
-      return Twitcher.URL() + "?" + "q=" + encodeURIComponent(query);
+      for (name in params) {
+        param_string += "&" + name + "=" + encodeURIComponent(params[name]);
+      }
+      
+      return Twitcher.URL() + "?" + param_string;
     },    
     
     query_string: "",
