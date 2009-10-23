@@ -48,21 +48,15 @@
     init: function(query, params) {
       var self = this;
       
-      self.setup.query_string = query || "";
-      self.setup.parameters = self.build_params(params);
+      self.query_string = query || "";
+      self.parameters = self.build_params(params);
       self.url = self.compose_url();
       
-      if (query) {
-        self.load(function(data){
-          console.log(data);
-        });
-      }
-            
       return self;
     },
     
     build_params: function(params){
-      var setup = this.setup.parameters;
+      var setup = this.parameters;
       var new_params = {};
       
       if (!params) {
@@ -79,26 +73,25 @@
     },
     
     compose_url: function(query, params){
-      query = query || this.setup.query_string;
-      params = params || this.setup.parameters;
+      query = query || this.query_string;
+      params = params || this.parameters;
       
       return Twitcher.URL() + "?" + "q=" + encodeURIComponent(query);
+    },    
+    
+    query_string: "",
+    
+    parameters: {
+      "lang": true,
+      "locale": true,
+      "rpp": true,
+      "page": true,
+      "since_id": true,
+      "geocode": true,
+      "show_user": true
     },
     
-    setup: {
-      query_string: "",
-      parameters: {
-        "lang": true,
-        "locale": true,
-        "rpp": true,
-        "page": true,
-        "since_id": true,
-        "geocode": true,
-        "show_user": true
-      },
-      
-      callback: "twitcher_load",
-    },
+    callback: "twitcher_load",
     
     successful: false,
     
@@ -143,7 +136,7 @@
       var caller = this;
       var nonce = Date.now();
       var url = caller.url;
-      var callback = caller.setup.callback + "_" + nonce;
+      var callback = caller.callback + "_" + nonce;
       
       var func = function(data) {
         if (lambda) {
