@@ -12,7 +12,7 @@ Twitcher is a _tiny_ JavaScript library for consuming the Twitter Search API.
 
 	var tooter = Twitcher('from:markwunsch');
 	tooter.load(function(response){
-		alert('Alright I'm finished loading Tweets from the Twitter Search API!');
+		alert("Alright I'm finished loading Tweets from the Twitter Search API!");
 	});
 	
 then you can do stuff like this:
