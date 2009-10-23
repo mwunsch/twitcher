@@ -45,7 +45,9 @@
       self.setup.query_string = query || "";
       self.url = self.compose_url();
       if (query) {
-        self.load();
+        self.load(function(data){
+          console.log(data);
+        });
       }
             
       return self;
@@ -59,7 +61,6 @@
     setup: {
       query_string: "",
       parameters: {
-        "callback": "get_tweets",
         "lang": "",
         "locale": "",
         "rpp": "",
@@ -68,23 +69,33 @@
         "geocode": "",
         "show_user": ""
       },
+      
+      callback: "twitcher_load",
     },
+    
+    successful: false,
+    
+    complete: false,
     
     response: null,
     
     tweets: function(lambda) {
-      var tweets = this.response.results;
-      if (tweets) {
-        if (!lambda) {
-          return tweets;
-        } else {
-          for (i=0; i < tweets.length; i += 1) {
-            lambda(tweets[i]);
+      if (this.response) {
+        var tweets = this.response.results;
+        if (tweets) {
+          if (!lambda) {
+            return tweets;
+          } else {
+            for (i=0; i < tweets.length; i += 1) {
+              lambda(tweets[i]);
+            }
           }
+        } else {
+          return null;
         }
       } else {
         return null;
-      }
+      }      
     },
     
     count: function(){
@@ -95,22 +106,26 @@
       this.tweets(lambda);
     },
     
-    load: function(url, callback, lambda) {
+    load: function(lambda) {
       var ext = Twitcher.Extensions;
       var caller = this;
       var nonce = Date.now();
-      
-      url = url || caller.url;
-      callback = (callback || caller.setup.parameters.callback) + "_" + nonce;
+      var url = caller.url;
+      var callback = caller.setup.callback + "_" + nonce;
       
       var func = function(data) {
+        if (lambda) {
+         lambda(data); 
+        }
         caller.response = data;
+        caller.complete = true;
+        if (!data.error) {
+          caller.successful = true;
+        }
       };
       
-      lambda = lambda || func;
-      
       url += "&callback=" + callback;
-      ext.jsonp(url, lambda, callback);
+      ext.jsonp(url, func, callback);
     }  
   };
   
