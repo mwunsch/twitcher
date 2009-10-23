@@ -16,7 +16,8 @@ describe 'Twitcher'
     search.compose_url().should.be "http://search.twitter.com/search.json?q=from:markwunsch"
   end
   
-  it 'should accept paramaters for Search API'    
+  it 'should accept parameters for Search API'
+    search.setup.parameters.should.be_an Object
   end
   
 end
