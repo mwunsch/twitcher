@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/MIT/
 **/
 
-;(function(){
+(function(){
   var window = this;
   var Twitcher = function(query, parameters) {
     this.init(query, parameters);
@@ -63,9 +63,9 @@
         return new_params;
       }
       
-      for (name in params) {        
-        if (setup[name]) {
-          new_params[name] = params[name] + '';
+      for (var key in params) {        
+        if (setup[key]) {
+          new_params[key] = params[key] + '';
         }
       }
       
@@ -77,8 +77,8 @@
       params = params || this.parameters;
       var param_string = "q=" + encodeURIComponent(query);
       
-      for (name in params) {
-        param_string += "&" + name + "=" + encodeURIComponent(params[name]);
+      for (var key in params) {
+        param_string += "&" + key + "=" + encodeURIComponent(params[key]);
       }
       
       return Twitcher.URL() + "?" + param_string;
@@ -113,7 +113,7 @@
           if (!lambda) {
             return tweets;
           } else {
-            for (i=0; i < tweets.length; i += 1) {
+            for (var i=0; i < tweets.length; i += 1) {
               lambda(tweets[i]);
             }
           }
