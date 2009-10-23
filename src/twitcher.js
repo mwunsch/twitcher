@@ -80,7 +80,7 @@
     
     compose_url: function(query, params){
       query = query || this.setup.query_string;
-      
+      params = params || this.setup.parameters;
       
       return Twitcher.URL() + "?" + "q=" + encodeURIComponent(query);
     },
