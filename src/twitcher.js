@@ -104,6 +104,8 @@
     
     response: null,
     
+    loading: false,
+    
     tweets: function(lambda) {
       if (this.response) {
         var tweets = this.response.results;
@@ -142,15 +144,18 @@
       var nonce = Date.now();
       var url = caller.url;
       var callback = caller.callback + "_" + nonce;
+      caller.loading = true;
       
       var func = function(data) {
-        if (lambda) {
-         lambda(data); 
-        }
+        caller.loading = false;
         caller.response = data;
         caller.complete = true;
         if (!data.error) {
           caller.successful = true;
+        }
+        
+        if (lambda) {
+         lambda(data); 
         }
       };
       
